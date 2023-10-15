@@ -1,0 +1,101 @@
+﻿@model UserLoginModel
+
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/Account/https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Account/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/Account/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Account/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/Account/css/style.css">
+
+    <title>Login </title>
+</head>
+<body>
+
+
+    <div class="d-md-flex half">
+        <div class="bg" style="background-image: url('images/bg_1.jpg');"></div>
+        <div class="contents">
+
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12">
+                        <div class="form-block mx-auto">
+                            <div class="text-center mb-5">
+                                <h3 class="text-uppercase">Login</h3>
+                            </div>
+                            <div asp-validation-summary="All" style="color:red">
+
+                            </div>
+                            @if (TempData["Ok"] != null)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    @((string)TempData["Ok"])
+                                </div>
+                            }
+                            <form asp-action="Login" asp-controller="Account" method="post">
+                                <div class="form-group first">
+                                    <label asp-for="UsernameorEmail">Username or Email</label>
+                                    <input asp-for="UsernameorEmail" type="text" class="form-control">
+                                </div>
+                                <div class="form-group last mb-3">
+                                    <label asp-for="Password">Password</label>
+                                    <input asp-for="Password" type="text" class="form-control">
+                                </div>
+
+                                <div class="d-sm-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-3 mb-sm-0">
+                                        <span class="caption">Remember me</span>
+                                        <input type="checkbox" asp-for="RememberMe" />
+                                        <div class="control__indicator"></div>
+                                    </label>
+                                    <span class="ml-auto"><a asp-controller="Account" asp-action="ForgotPassword" class="forgot-pass">Forgot Password</a></span>
+                                </div>
+
+                                <input type="submit" value="Log In" class="btn btn-block py-2 btn-primary">
+
+                                <span class="text-center my-3 d-block">or</span>
+
+
+                                <div class="">
+                                    <a asp-action="Register" asp-controller="Account" style="background-color: lawngreen" class="btn btn-block py-2 btn-primary">
+                                         Register
+                                    </a>
+                                    <a href="~/Account/#" class="btn btn-block py-2 btn-facebook">
+                                        <span class="icon-facebook mr-3"></span> Login with facebook
+                                    </a>
+                                    <a href="~/Account/#" class="btn btn-block py-2 btn-google">
+                                        <span class="icon-google mr-3"></span> Login with Google
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <script src="~/Account/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Account/js/popper.min.js"></script>
+    <script src="~/Account/js/bootstrap.min.js"></script>
+    <script src="~/Account/js/main.js"></script>
+</body>
+</html>

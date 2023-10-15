@@ -1,0 +1,84 @@
+﻿@model UserCreateModel
+
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/Account/https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Account/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/Account/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Account/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/Account/css/style.css">
+
+    <title>Register </title>
+</head>
+<body>
+    <div class="d-md-flex half">
+        <div class="bg" style="background-image: url('images/bg_1.jpg');"></div>
+        <div class="contents">
+
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12">
+                        <div class="form-block mx-auto">
+                            <div class="text-center mb-5">
+                                <h3 class="text-uppercase">Register</h3>
+                            </div>
+                            <div asp-validation-summary="All" style="color:red">
+
+                            </div>
+                            @if (TempData["Email"] != null)
+                            {
+                                <div class="alert alert-primary" role="alert">
+                                    @((string)TempData["Email"])
+                                </div>
+                            }
+                            <form asp-action="Register" asp-controller="Account" method="post">
+                                <div class="form-group first">
+                                    <label asp-for="Username">Username</label>
+                                    <input asp-for="Username" type="text" class="form-control">
+                                </div>
+                                <div class="form-group first">
+                                    <label asp-for="Email">Email</label>
+                                    <input asp-for="Email" type="text" class="form-control">
+                                </div>
+                                <div class="form-group last mb-3">
+                                    <label asp-for="Password">Password</label>
+                                    <input asp-for="Password" type="text" class="form-control">
+                                </div>
+                                <div class="form-group last mb-3">
+                                    <label asp-for="ConfrimPassword">ConfrimPassword</label>
+                                    <input asp-for="ConfrimPassword" type="text" class="form-control">
+                                </div>
+                                <div class="d-sm-flex mb-5 align-items-center">
+                                    <span class="ml-auto"><a asp-action="Login" asp-controller="Account" class="forgot-pass">Login</a></span>
+                                </div>
+
+                                <input type="submit" value="Register" class="btn btn-block py-2 btn-primary">
+
+                                @*<a class="btn btn-block py-2 btn-primary" asp-action="Login" asp-controller="Account"> Login </a>*@
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Account/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Account/js/popper.min.js"></script>
+    <script src="~/Account/js/bootstrap.min.js"></script>
+    <script src="~/Account/js/main.js"></script>
+</body>
+</html>
