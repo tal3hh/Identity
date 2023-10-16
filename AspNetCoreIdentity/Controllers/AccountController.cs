@@ -1,4 +1,5 @@
 ﻿using AspNetCoreIdentity.Entities;
+using AspNetCoreIdentity.Helper;
 using AspNetCoreIdentity.Models.Account;
 using AspNetCoreIdentity.Services.Interface;
 using Microsoft.AspNetCore.Identity;
@@ -13,12 +14,17 @@ namespace AspNetCoreIdentity.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMessageSend _messageSend;
 
-        public AccountController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<AppUser> signInManager, IMessageSend messageSend)
+        private readonly RabbitMQHelper _rabbitMQHelper;
+        private readonly RabbitMQHandler _rabbitMQHandler;
+
+        public AccountController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<AppUser> signInManager, IMessageSend messageSend, RabbitMQHelper rabbitMQHelper, RabbitMQHandler rabbitMQHandler)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _messageSend = messageSend;
+            _rabbitMQHelper = rabbitMQHelper;
+            _rabbitMQHandler = rabbitMQHandler;
         }
 
 
@@ -58,7 +64,12 @@ namespace AspNetCoreIdentity.Controllers
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var url = Url.Action(nameof(VerifyEmail), "Account", new { userId = user.Id, token = code }, Request.Scheme, Request.Host.ToString());
 
-                _messageSend.MimeKitConfrim(appUser, url, code);
+                //_messageSend.MimeKitConfrim(appUser, url, code);
+
+                //RabbitMQ
+                _rabbitMQHelper.SendEmailRequest(user.UserName, user.Email, url, code);
+                _rabbitMQHandler.StartHandling();
+
 
                 TempData["Email"] = "E-mail'e gelmis linki tesdiqliyin.";
                 return View();
@@ -130,6 +141,10 @@ namespace AspNetCoreIdentity.Controllers
                                                     $"Eks halda hesaba giris ede bilmeyeceksiz." +
                                                     $"E-mail unvani: {user.Email}");
                     return View(model);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "UsernameorEmail ve Password yalnisdir.");
                 }
 
                 //if (user != null)

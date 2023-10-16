@@ -23,6 +23,8 @@ builder.Services.AddScoped<IValidator<UserCreateModel>, UserCreateValidation>();
 builder.Services.AddScoped<IValidator<ResetPasswordModel>, ResetPasswordValidation>();
 builder.Services.AddScoped<IValidator<UserLoginModel>, UserLoginValidation>();
 
+builder.Services.AddScoped<RabbitMQHelper>();
+builder.Services.AddScoped<RabbitMQHandler>();
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
