@@ -25,7 +25,7 @@ namespace AspNetCoreIdentity.Helper
             _factory.Uri = new Uri("amqps://gnvjdvrj:RxnyO1UOCNBzbbEqpo9YzNlsr_Md3tSI@octopus.rmq3.cloudamqp.com/gnvjdvrj");
             var connection = _factory.CreateConnection();
             _channel = connection.CreateModel();
-            _channel.QueueDeclare(queue: "password_reset_request", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueDeclare(queue: "send_email", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
             //durable: Eger true verilse, queue(quyruq) mesajlarini itirmez ve yeniden acildiginda mesajlari qoruyar. Eger false verilse quyruq baglandiqdan sonra mesajlar siliner.
 
@@ -38,7 +38,7 @@ namespace AspNetCoreIdentity.Helper
         {
             string message = $"{username}|{email}|{url}|{token}";
             var body = Encoding.UTF8.GetBytes(message);
-            _channel.BasicPublish(exchange: "", routingKey: "password_reset_request", basicProperties: null, body: body);
+            _channel.BasicPublish(exchange: "", routingKey: "send_email", basicProperties: null, body: body);
         }
 
 
@@ -60,7 +60,7 @@ namespace AspNetCoreIdentity.Helper
                 onRecived(username, email, url, token);
             };
 
-            _channel.BasicConsume(queue: "password_reset_request", autoAck: true, consumer: consume);
+            _channel.BasicConsume(queue: "send_email", autoAck: true, consumer: consume);
         }
     }
 }

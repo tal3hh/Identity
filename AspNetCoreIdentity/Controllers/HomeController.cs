@@ -11,10 +11,5 @@ namespace AspNetCoreIdentity.Controllers
             return View();
         }
 
-        [Authorize(Roles ="Admin")]
-        public IActionResult AdminPanel()
-        {
-            return View();
-        }
     }
 }

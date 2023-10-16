@@ -58,7 +58,7 @@ builder.Services.ConfigureApplicationCookie(opt =>
     opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
     opt.Cookie.Name = "RestorantApp";
     opt.LoginPath = new PathString("/Account/Login");
-    opt.AccessDeniedPath = new PathString("/Shared/AccessDenied");
+    opt.AccessDeniedPath = new PathString("/Account/AccessDenied");
     opt.ExpireTimeSpan = TimeSpan.FromDays(1);
 });
 #endregion

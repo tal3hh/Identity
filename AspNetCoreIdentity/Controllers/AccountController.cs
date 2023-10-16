@@ -160,11 +160,15 @@ namespace AspNetCoreIdentity.Controllers
         #endregion
 
 
-        #region Logout
+        #region Logout AccessDenied
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
         #endregion
 
