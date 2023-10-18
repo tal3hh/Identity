@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LXKDgdUju7+rkZvw4fcvWGA0pezHVNYj5Q0SNGQGd4vNb+1gmoi1CozgO1TsT1TOw8+rB0qWylitTmttLaQI4g==",
+  "dgSpecHash": "4fb+SvMwB4w2zjBZ9kxt0+BTPpM3Fi9blzyqXMxeBIaqjh0fgD5RESWsOGr8H8sdDWm5+HogI1/GnmGYP2aFMA==",
   "success": true,
   "projectFilePath": "C:\\Users\\HP\\Desktop\\Identity\\AspNetCoreIdentity\\AspNetCoreIdentity\\AspNetCoreIdentity.csproj",
   "expectedPackageFiles": [
@@ -54,6 +54,7 @@
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\mimekit\\4.2.0\\mimekit.4.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\rabbitmq.client\\6.6.0\\rabbitmq.client.6.6.0.nupkg.sha512",

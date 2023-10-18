@@ -57,3 +57,4 @@ C:\Users\HP\Desktop\Identity\AspNetCoreIdentity\AspNetCoreIdentity\bin\Debug\net
 C:\Users\HP\Desktop\Identity\AspNetCoreIdentity\AspNetCoreIdentity\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\HP\Desktop\Identity\AspNetCoreIdentity\AspNetCoreIdentity\obj\Debug\net7.0\AspNetCoreIdentity.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\HP\Desktop\Identity\AspNetCoreIdentity\AspNetCoreIdentity\bin\Debug\net7.0\RabbitMQ.Client.dll
+C:\Users\HP\Desktop\Identity\AspNetCoreIdentity\AspNetCoreIdentity\bin\Debug\net7.0\Newtonsoft.Json.dll

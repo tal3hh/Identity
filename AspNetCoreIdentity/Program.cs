@@ -3,6 +3,8 @@ using AspNetCoreIdentity.Entities;
 using AspNetCoreIdentity.FluentValidation.Account;
 using AspNetCoreIdentity.Helper;
 using AspNetCoreIdentity.Models.Account;
+using AspNetCoreIdentity.RabbitMQ;
+using AspNetCoreIdentity.RabbitMQ.Interface;
 using AspNetCoreIdentity.Services;
 using AspNetCoreIdentity.Services.Interface;
 using FluentValidation;
@@ -25,6 +27,10 @@ builder.Services.AddScoped<IValidator<UserLoginModel>, UserLoginValidation>();
 
 builder.Services.AddScoped<RabbitMQHelper>();
 builder.Services.AddScoped<RabbitMQHandler>();
+
+//RabbitMQ main
+builder.Services.AddScoped<IRabbitMQProducer, RabbitMQProducer>();
+builder.Services.AddScoped<IRabbitMQConsume, RabbitMQConsume>();
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();

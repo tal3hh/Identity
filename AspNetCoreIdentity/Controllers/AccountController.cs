@@ -1,6 +1,8 @@
 ﻿using AspNetCoreIdentity.Entities;
 using AspNetCoreIdentity.Helper;
 using AspNetCoreIdentity.Models.Account;
+using AspNetCoreIdentity.Models.RabbitMQModel;
+using AspNetCoreIdentity.RabbitMQ.Interface;
 using AspNetCoreIdentity.Services.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +16,16 @@ namespace AspNetCoreIdentity.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMessageSend _messageSend;
 
-        private readonly RabbitMQHelper _rabbitMQHelper;
-        private readonly RabbitMQHandler _rabbitMQHandler;
-
-        public AccountController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<AppUser> signInManager, IMessageSend messageSend, RabbitMQHelper rabbitMQHelper, RabbitMQHandler rabbitMQHandler)
+        private readonly IRabbitMQProducer _rabbitMQProducer;
+        private readonly IRabbitMQConsume _rabbitMQConsume;
+        public AccountController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<AppUser> signInManager, IMessageSend messageSend, IRabbitMQProducer rabbitMQProducer, IRabbitMQConsume rabbitMQConsume)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _messageSend = messageSend;
-            _rabbitMQHelper = rabbitMQHelper;
-            _rabbitMQHandler = rabbitMQHandler;
+            _rabbitMQProducer = rabbitMQProducer;
+            _rabbitMQConsume = rabbitMQConsume;
         }
 
 
@@ -52,10 +53,10 @@ namespace AspNetCoreIdentity.Controllers
             {
                 var role = new IdentityRole
                 {
-                    Name = "Member"
+                    Name = "SuperAdmin"
                 };
 
-                await _userManager.AddToRoleAsync(user, "Member");
+                await _userManager.AddToRoleAsync(user, "SuperAdmin");
 
                 var appUser = await _userManager.FindByEmailAsync(user.Email);
 
@@ -67,9 +68,10 @@ namespace AspNetCoreIdentity.Controllers
                 //_messageSend.MimeKitConfrim(appUser, url, code);
 
                 //RabbitMQ
-                _rabbitMQHelper.SendEmailRequest(user.UserName, user.Email, url, code);
-                _rabbitMQHandler.StartHandling();
+                var message = new RegisterRabbitMQModel { AppUser = user,Url = url,Token = code };
 
+                _rabbitMQProducer.ConfrimEmail(message);
+                _rabbitMQConsume.ConsumeConfrimEmail();
 
                 TempData["Email"] = "E-mail'e gelmis linki tesdiqliyin.";
                 return View();
@@ -95,7 +97,6 @@ namespace AspNetCoreIdentity.Controllers
             return RedirectToAction("Login", "Account");
         }
         #endregion
-
 
         #region Login
         public IActionResult Login()
